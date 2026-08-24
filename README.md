@@ -26,6 +26,8 @@ I also wanted a focused project to **learn Rust**, so the design deliberately pu
 
 Data comes from the community [metaforge.app](https://metaforge.app) ARC Raiders events API.
 
+> **Region limitation:** the metaforge `events-schedule` endpoint currently only returns `"region": "europe"` — the `?region=` query param is accepted but silently ignored (confirmed 2026-08-24: identical response/`cachedAt` for `europe`/`asia`/`na`, and path-based variants 404). There's no official Embark API to fall back on either — Embark has stated they have no current plans to support external APIs. Until metaforge opens up other regions, ArcWatch should treat all event times as EU-server times and label the UI accordingly. Worth periodically re-checking; see the Roadmap for the planned region selector.
+
 ## Architecture
 
 The logic lives in **Rust**, exposed to the UI as Tauri commands. The webview is a thin view layer that calls into Rust and renders the result.
@@ -76,6 +78,7 @@ npm run tauri build
 - [ ] Widget mode (always-on-top, borderless window)
 - [ ] Menu-bar tray icon + launch-at-login
 - [ ] App icon + packaged release
+- [ ] Region selector (EU/NA/Asia) — blocked on metaforge actually supporting the `region` param; currently EU-only regardless of what's requested
 
 ## Credits
 
